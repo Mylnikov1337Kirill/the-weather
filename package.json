@@ -1,19 +1,22 @@
 {
   "name": "the-weather",
   "version": "0.1.0",
+  "homepage": "https://mylnikov1337kirill.github.io/the-weather/",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "gh-pages": "^3.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
   },
   "scripts": {
+    "predeploy": "react-scripts build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "postbuild": "mv build ./docs",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
