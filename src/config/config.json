@@ -1,0 +1,6 @@
+{
+  "db_version": 1,
+  "api_key": "ac833396f31ab96aa2f77a6edb2a49aa",
+  "default_coords": { "lat": 55.751244, "lon": 37.618423 },
+  "refresh_rate": 600000
+}
