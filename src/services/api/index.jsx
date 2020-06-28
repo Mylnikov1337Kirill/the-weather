@@ -24,13 +24,13 @@ class ApiService {
           return new Promise((resolve, reject) => {
             return navigator.geolocation.getCurrentPosition(
               ({ coords: { longitude, latitude }}) => resolve({ lon: longitude, lat: latitude }),
-              () => reject(undefined),
+              () => reject(),
               { timeout: 1000 * 60 }
             )
           })
         }
 
-        return Promise.reject(undefined);
+        return Promise.reject();
       }
     }
 
