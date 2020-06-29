@@ -1,10 +1,12 @@
-import { openDB } from 'idb';
+import { openDB, deleteDB } from 'idb';
 
+import { mapWeatherResponse } from './utils';
 import config from '../../config/config';
 const { db_version, refresh_rate } = config;
 
 const DB_NAME = 'the-weather-db';
 const STORE_NAME = 'store';
+
 
 class StorageService {
   constructor() {
@@ -30,7 +32,7 @@ class StorageService {
     if (!actualLastUpdate || (actualLastUpdate && currentTime - actualLastUpdate.timestamp >= refresh_rate )) {
       const res = await loadData();
 
-      await this.writeToDb(res);
+      await this.writeToDb(mapWeatherResponse(res));
 
       return this.state.lastUpdate;
     }
