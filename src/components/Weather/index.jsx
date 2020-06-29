@@ -26,9 +26,9 @@ const Weather = () => {
         }
       }
     );
-    setLoading(false);
+    // setLoading(false);
 
-    setForecast(lastUpdate);
+    // setForecast(lastUpdate);
   }, []);
 
 

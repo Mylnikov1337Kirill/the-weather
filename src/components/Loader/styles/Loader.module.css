@@ -1,8 +1,8 @@
 .wrapper {
     background-color: transparent;
     perspective: 1000px;
-    width: 15vw;
-    height: 15vh;
+    width: 20vw;
+    height: 20vh;
 }
 
 .inner {
@@ -16,8 +16,8 @@
 }
 
 .icon {
-    width: 15vw;
-    height: 15vh;
+    width: 20vw;
+    height: 20vh;
 }
 
 .front, .back {
@@ -29,7 +29,7 @@
 }
 
 .front {
-    left: -5vw;
+    left: -10vw;
     position: absolute;
     animation: front 2.4s linear infinite backwards;
 }
