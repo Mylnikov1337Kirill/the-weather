@@ -16,6 +16,7 @@ class StorageService {
   }
 
   async getLastUpdate(loadData = async () => {}) {
+    deleteDB(DB_NAME);
     const { lastUpdate } = this.state;
     const currentTime = Date.now();
 
@@ -31,6 +32,8 @@ class StorageService {
 
     if (!actualLastUpdate || (actualLastUpdate && currentTime - actualLastUpdate.timestamp >= refresh_rate )) {
       const res = await loadData();
+
+      console.log(res);
 
       await this.writeToDb(mapWeatherResponse(res));
 
