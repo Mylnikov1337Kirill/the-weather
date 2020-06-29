@@ -16,7 +16,6 @@ class StorageService {
   }
 
   async getLastUpdate(loadData = async () => {}) {
-    deleteDB(DB_NAME);
     const { lastUpdate } = this.state;
     const currentTime = Date.now();
 

@@ -1,8 +1,8 @@
 .wrapper {
     background-color: transparent;
     perspective: 1000px;
-    width: 10vw;
-    height: 10vh;
+    width: 15vw;
+    height: 15vh;
 }
 
 .inner {
@@ -16,8 +16,8 @@
 }
 
 .icon {
-    width: 10vw;
-    height: 10vh;
+    width: 15vw;
+    height: 15vh;
 }
 
 .front, .back {
