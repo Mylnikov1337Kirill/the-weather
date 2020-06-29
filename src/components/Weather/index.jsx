@@ -26,9 +26,9 @@ const Weather = () => {
         }
       }
     );
-    // setLoading(false);
+    setLoading(false);
 
-    // setForecast(lastUpdate);
+    setForecast(lastUpdate);
   }, []);
 
 
@@ -46,7 +46,7 @@ const Weather = () => {
     <div className={ styles.wrapper }>
       <h1>{ forecast.name }</h1>
       <h2>{ forecast.measures.temp } &#8451;</h2>
-      <span>Ощущается как { forecast.measures.feels_like } &#8451;</span>
+      <span>{ forecast.weather_description }, ощущается как { forecast.measures.feels_like } &#8451;</span>
     </div>
   );
 
