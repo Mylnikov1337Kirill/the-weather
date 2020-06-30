@@ -16,7 +16,6 @@ class StorageService {
   }
 
   async getLastUpdate(loadData = async () => {}) {
-    deleteDB(DB_NAME)
     const { lastUpdate } = this.state;
     const currentTime = Date.now();
 
@@ -74,9 +73,8 @@ class StorageService {
       const storeTransaction = db.transaction(STORE_NAME, 'readwrite').objectStore(STORE_NAME);
 
       const actualData = { ...data, timestamp: Date.now() };
-      const req = storeTransaction.add(actualData);
+      await storeTransaction.add(actualData);
 
-      await req;
       this.state = {
         ...this.state,
         lastUpdate: actualData,

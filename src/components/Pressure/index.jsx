@@ -1,0 +1,20 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+
+import { Tab } from '../Tab';
+
+const Pressure = ({ forecast }) => {
+  return (
+    <Tab>
+      <h1>А/д</h1>
+      <h2>{ forecast.measures.pressure }</h2>
+      <span>мм рт ст</span>
+    </Tab>
+  )
+};
+
+Pressure.propTypes = {
+  forecast: PropTypes.object.isRequired
+};
+
+export { Pressure };

@@ -1,5 +1,7 @@
 const kelvinToCelsius = (v) => v - 273.15;
 
+const hPaToMillimetersOfMercury = (v) => v * 100 / 133.3223684;
+
 const weatherDescriptionTranslations = (v) => {
   const translations = {
    'Clear': 'Ясно',
@@ -17,7 +19,7 @@ const mapWeatherResponse = ({ clouds, main: { temp, feels_like, pressure, humidi
   measures: {
     temp: kelvinToCelsius(temp).toFixed(0),
     feels_like: kelvinToCelsius(feels_like).toFixed(0),
-    pressure,
+    pressure: hPaToMillimetersOfMercury(pressure).toFixed(0),
     humidity
   },
   rain,
