@@ -1,13 +1,16 @@
 const kelvinToCelsius = (v) => v - 273.15;
 
+const unixToTimestamp = (v) => v * 1000;
+
 const hPaToMillimetersOfMercury = (v) => v * 100 / 133.3223684;
 
 const weatherDescriptionTranslations = (v) => {
   const translations = {
-   'Clear': 'Ясно',
+    'Clear': 'Ясно',
     'Clouds': 'Облачно',
     'Thunderstorm': 'Гроза',
-    'Rain': 'Дождь'
+    'Rain': 'Дождь',
+    'Snow': 'Снег',
   };
 
   return translations[v] || v;
@@ -15,14 +18,16 @@ const weatherDescriptionTranslations = (v) => {
 
 const mapWeatherDescriptionToReadable = (list) => list.map(({ main }) => weatherDescriptionTranslations(main)).join(', ');
 
-const mapWeatherResponse = ({ clouds, main: { temp, feels_like, pressure, humidity }, rain, weather, wind, name }) => ({
+const mapWeatherResponse = ({ clouds, main: { temp, feels_like, pressure, humidity }, rain, snow, weather, wind, name, dt}) => ({
   measures: {
     temp: kelvinToCelsius(temp).toFixed(0),
     feels_like: kelvinToCelsius(feels_like).toFixed(0),
     pressure: hPaToMillimetersOfMercury(pressure).toFixed(0),
     humidity
   },
+  updatedAt: unixToTimestamp(dt),
   rain,
+  snow,
   clouds,
   weather_description: mapWeatherDescriptionToReadable(weather),
   name,
