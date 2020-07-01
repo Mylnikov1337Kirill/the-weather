@@ -8,6 +8,7 @@
     height: 2em;
     border-radius: 50%;
     border: 1px solid #BECFE8;
+    transition: background-color .350s ease-in-out;
 }
 
 .item:focus {

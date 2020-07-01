@@ -1,3 +1,11 @@
+.day {
+    background-color: #fff;
+}
+
+.night {
+
+}
+
 .wrapper {
     display: flex;
     flex-direction: column;
@@ -10,20 +18,40 @@
 
 h1 {
     font-size: 7vw;
-    color: #555;
     margin: 0 0 2vh;
+}
+
+.day h1 {
+    color: #555;
+}
+
+.night h1 {
 }
 
 h2 {
     font-size: 9vw;
     font-weight: bold;
     margin: 0;
+}
+
+.day h2 {
     color: #BECFE8;
+}
+
+.night h2 {
+
 }
 
 span {
     font-size: 5vw;
     margin-top: 1vh;
-    color: #555;
     font-weight: 600;
+}
+
+.day span {
+    color: #555;
+}
+
+.night span {
+    
 }

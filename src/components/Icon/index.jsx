@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { PROPS } from '../../consts/component-props';
-import { WindIcon } from './components/Wind';
-import { SunIcon } from './components/Sun';
-import { RainDrop } from './components/RainDrop';
+import { WindIcon } from './components/SmileyWind';
+import { SunIcon } from './components/SmileySun';
+import { SmileyRainDrop } from './components/SmileyRainDrop';
 
 const getIconByType = (type) => ({
   [PROPS.ICON.WIND]: WindIcon,
   [PROPS.ICON.SUN]: SunIcon,
-  [PROPS.ICON.RAINDROP]: RainDrop,
+  [PROPS.ICON.RAINDROP]: SmileyRainDrop,
 })[type];
 
 const Icon = ({ type, className }) => {

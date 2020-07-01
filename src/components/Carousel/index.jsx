@@ -8,9 +8,10 @@ import styles from './styles/Carousel.module.css';
 
 const getProperEvent = (e) => e.changedTouches ? e.changedTouches[0] : e;
 
-const Carousel = ({ children, itemsCount }) => {
+const Carousel = ({ children }) => {
   const [currentSlide, setCurrentSlide] = useState(1);
   const startPointCoord = useRef({});
+  const itemsCount = children.length;
   const lock = (e) => {
     startPointCoord.current.value = getProperEvent(e).clientX;
   };
@@ -61,7 +62,6 @@ const Carousel = ({ children, itemsCount }) => {
 
 Carousel.propTypes = {
   children: PropTypes.node.isRequired,
-  itemsCount: PropTypes.number.isRequired,
 };
 
 export { Carousel };
