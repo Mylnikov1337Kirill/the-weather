@@ -1,0 +1,23 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+}
+
+.item {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    border: 1px solid #BECFE8;
+}
+
+.item:focus {
+    outline: 0;
+}
+
+.item.active {
+    background-color: #BECFE8;
+}
+
+.item + .item {
+    margin-left: 1vw;
+}

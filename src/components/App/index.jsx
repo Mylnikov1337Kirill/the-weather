@@ -14,6 +14,8 @@ import { Humidity } from '../Humidity';
 import config from '../../config/config';
 const { refresh_rate } = config;
 
+const appStyles = { width: '100%', height: '100%', 'overflowX': 'hidden' };
+
 const App = () => {
   const [loading, setLoading] = useState(false);
   const [forecast, setForecast] = useState(null);
@@ -60,8 +62,8 @@ const App = () => {
   }
 
   return (
-    <div style={ { width: '100%', height: '100%', 'overflowX': 'hidden' } }>
-      <Carousel>
+    <div style={ appStyles }>
+      <Carousel itemsCount={ 3 }>
         <Pressure forecast={ forecast } />
         <Temperature forecast={ forecast } />
         <Humidity forecast={ forecast } />
