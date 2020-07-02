@@ -3,7 +3,7 @@
 }
 
 .night {
-
+    background-color: #2E4582;
 }
 
 .wrapper {
@@ -26,6 +26,7 @@ h1 {
 }
 
 .night h1 {
+    color: #fff;
 }
 
 h2 {
@@ -39,7 +40,7 @@ h2 {
 }
 
 .night h2 {
-
+    color: #fff;
 }
 
 span {
@@ -53,5 +54,5 @@ span {
 }
 
 .night span {
-
+    color: #fff;
 }
