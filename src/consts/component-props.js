@@ -2,7 +2,9 @@ const PROPS = {
   ICON: {
     WIND: 'wind',
     SUN: 'sun',
-    RAINDROP: 'raindrop'
+    RAINDROP: 'raindrop',
+    SIMPLE_SUN: 'simpleSun',
+    SIMPLE_MOON: 'simpleMoon'
   }
 };
 

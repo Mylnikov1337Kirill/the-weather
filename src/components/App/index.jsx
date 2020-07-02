@@ -9,12 +9,13 @@ import { Carousel } from '../Carousel';
 import { Temperature } from '../Temperature';
 import { Pressure } from '../Pressure';
 import { Humidity } from '../Humidity';
+import { Switcher } from '../Switcher';
+
+import styles from './styles/App.module.css';
 
 import config from '../../config/config';
 import {THEMES} from "../../consts/themes";
 const { refresh_rate } = config;
-
-const appStyles = { width: '100%', height: '100%', 'overflowX': 'hidden' };
 
 const getDefaultTheme = () => {
   const currentHour = new Date().getHours();
@@ -75,8 +76,14 @@ const App = () => {
   }
 
   return (
-    <div style={ appStyles }>
+    <div className={ styles.app }>
       <ThemeContext.Provider value={ { value: theme, updateValue: setTheme } }>
+        <div className={ styles['theme-switcher'] }>
+          <Switcher
+            onChange={ (v) => setTheme(v ? THEMES.DAY : THEMES.NIGHT) }
+            checked={ theme === THEMES.DAY }
+          />
+        </div>
         <Carousel>
           <Pressure forecast={ forecast } />
           <Temperature forecast={ forecast } />

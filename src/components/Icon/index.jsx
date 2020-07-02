@@ -5,11 +5,15 @@ import { PROPS } from '../../consts/component-props';
 import { WindIcon } from './components/SmileyWind';
 import { SunIcon } from './components/SmileySun';
 import { SmileyRainDrop } from './components/SmileyRainDrop';
+import { SimpleMoon } from './components/SimpleMoon';
+import { SimpleSun } from './components/SimpleSun';
 
 const getIconByType = (type) => ({
   [PROPS.ICON.WIND]: WindIcon,
   [PROPS.ICON.SUN]: SunIcon,
   [PROPS.ICON.RAINDROP]: SmileyRainDrop,
+  [PROPS.ICON.SIMPLE_MOON]: SimpleMoon,
+  [PROPS.ICON.SIMPLE_SUN]: SimpleSun
 })[type];
 
 const Icon = ({ type, className }) => {
