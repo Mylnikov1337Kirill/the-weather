@@ -9,6 +9,7 @@
     border-radius: 2em;
     border: 1px solid;
     transition: background-color, border .350s ease-in-out;
+    cursor: pointer;
 }
 
 .item.day {

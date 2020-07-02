@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import { Store } from '../../services/storage';
 import { Api } from '../../services/api';
@@ -10,6 +10,7 @@ import { Temperature } from '../Temperature';
 import { Pressure } from '../Pressure';
 import { Humidity } from '../Humidity';
 import { Switcher } from '../Switcher';
+import { AnimationsLayout } from '../AnimationsLayout';
 
 import styles from './styles/App.module.css';
 
@@ -34,8 +35,6 @@ const App = () => {
   const [loading, setLoading] = useState(false);
   const [forecast, setForecast] = useState(null);
 
-  const timerRef = useRef({});
-
   const loadData = useCallback(async () => {
     setLoading(true);
     const lastUpdate = await Store.getLastUpdate(
@@ -56,11 +55,9 @@ const App = () => {
   useEffect(() => {
     loadData();
 
-    timerRef.current = {
-      id: setTimeout(loadData, refresh_rate),
-    };
+    const timer =  setTimeout(loadData, refresh_rate);
 
-    return () => clearTimeout(timerRef.current.id);
+    return () => clearTimeout(timer);
   }, []);
 
   if (!forecast && loading) {
@@ -78,6 +75,7 @@ const App = () => {
   return (
     <div className={ styles.app }>
       <ThemeContext.Provider value={ { value: theme, updateValue: setTheme } }>
+        <AnimationsLayout />
         <div className={ styles['theme-switcher'] }>
           <Switcher
             onChange={ (v) => setTheme(v ? THEMES.DAY : THEMES.NIGHT) }
