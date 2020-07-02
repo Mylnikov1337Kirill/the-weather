@@ -6,7 +6,7 @@
 .item {
     width: 2em;
     height: 2em;
-    border-radius: 50%;
+    border-radius: 2em;
     border: 1px solid #BECFE8;
     transition: background-color .350s ease-in-out;
 }
