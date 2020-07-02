@@ -17,6 +17,7 @@
 
 .item.night {
     border-color: #FFF;
+    background-color: #FFF;
 }
 
 .item:focus {
