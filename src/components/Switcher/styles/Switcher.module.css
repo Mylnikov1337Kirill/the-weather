@@ -9,6 +9,10 @@
     cursor: pointer;
 }
 
+.wrapper:focus {
+    outline: 0;
+}
+
 input {
     display: none;
 }

@@ -22,8 +22,10 @@ const BreadCrumbs = ({ items, value, onChange }) => {
         key={ i }
         className={ itemClasses.join(' ') }
         onClick={ () => {
-          onChange(i);
-          vibrate();
+          if (value !== i) {
+            onChange(i);
+            vibrate();
+          }
         } }
       />
     )
