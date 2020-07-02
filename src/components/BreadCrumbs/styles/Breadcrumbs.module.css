@@ -7,16 +7,28 @@
     width: 2em;
     height: 2em;
     border-radius: 2em;
-    border: 1px solid #BECFE8;
+    border: 1px solid;
     transition: background-color .350s ease-in-out;
+}
+
+.item.day {
+    border-color: #BECFE8;
+}
+
+.item.night {
+    border-color: #FFF;
 }
 
 .item:focus {
     outline: 0;
 }
 
-.item.active {
+.item.day.active {
     background-color: #BECFE8;
+}
+
+.item.night.active {
+    background-color: #FFF;
 }
 
 .item + .item {
