@@ -6,6 +6,7 @@
     display: block;
     background-color: #DEDEDE;
     position: relative;
+    cursor: pointer;
 }
 
 input {

@@ -60,8 +60,6 @@ const Carousel = ({ children }) => {
 
   const appTranslateAttr = { transform: `translate(${currentSlide * -100 }%)`};
 
-  console.log(touchEventCoords.current);
-
   return (
     <Tab>
       <div style={ { ...appTranslateAttr } } className={ styles.carousel }>
