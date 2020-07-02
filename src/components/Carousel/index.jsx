@@ -8,45 +8,59 @@ import styles from './styles/Carousel.module.css';
 
 const getProperEvent = (e) => e.changedTouches ? e.changedTouches[0] : e;
 
+const defaultTouchEventCoords = { start: 0, move: 0 };
+
 const Carousel = ({ children }) => {
   const [currentSlide, setCurrentSlide] = useState(1);
-  const startPointCoord = useRef({});
+  const touchEventCoords = useRef({ ...defaultTouchEventCoords });
   const itemsCount = children.length;
   const lock = (e) => {
-    startPointCoord.current.value = getProperEvent(e).clientX;
+    touchEventCoords.current = { ...defaultTouchEventCoords, start: getProperEvent(e).clientX };
+
+    document.addEventListener('mousemove', move);
+    document.addEventListener('touchmove', move);
   };
 
-  const move = (e) => {
-    const startValue = startPointCoord.current.value;
+  const release = (e) => {
+    const startValue = touchEventCoords.current.start;
 
     if(startValue || startValue === 0) {
       const dx = getProperEvent(e).clientX - startValue;
       const s = Math.sign(dx);
 
+      document.removeEventListener('mousemove', move);
+      document.removeEventListener('touchmove', move);
+
       if ((currentSlide === 0 && s > 0) || (currentSlide === itemsCount - 1 && s < 0)) {
-        return startPointCoord.current.value = null;
+        return;
       }
 
       setCurrentSlide(currentSlide - s);
-      startPointCoord.current.value = null;
     }
+  };
+
+  const move = (e) => {
+    // rethink this next time
+    touchEventCoords.current = { ...touchEventCoords.current, move: getProperEvent(e).clientX };
   };
 
   useEffect(() => {
     document.addEventListener('mousedown', lock);
     document.addEventListener('touchstart', lock);
-    document.addEventListener('mouseup', move);
-    document.addEventListener('touchend', move);
+    document.addEventListener('mouseup', release);
+    document.addEventListener('touchend', release);
 
     return () => {
       document.removeEventListener('mousedown', lock);
       document.removeEventListener('touchstart', lock);
-      document.removeEventListener('mouseup', move);
-      document.removeEventListener('touchend', move);
+      document.removeEventListener('mouseup', release);
+      document.removeEventListener('touchend', release);
     }
   });
 
   const appTranslateAttr = { transform: `translate(${currentSlide * -100 }%)`};
+
+  console.log(touchEventCoords.current);
 
   return (
     <Tab>

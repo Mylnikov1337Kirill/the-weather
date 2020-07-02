@@ -1,4 +1,4 @@
-const vibrate = (pattern = 100) => navigator.vibrate(pattern);
+const vibrate = (pattern = 30) => navigator.vibrate(pattern);
 
 const getLocation = () => new Promise((resolve, reject) => {
   return navigator.geolocation.getCurrentPosition(
