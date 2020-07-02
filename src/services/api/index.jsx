@@ -1,3 +1,5 @@
+import { getLocation } from '../../utils/navigatorApi';
+
 import config from '../../config/config';
 const { api_key, default_coords } = config;
 
@@ -21,13 +23,7 @@ class ApiService {
     return {
       getPosition: async () => {
         if (navigator.geolocation) {
-          return new Promise((resolve, reject) => {
-            return navigator.geolocation.getCurrentPosition(
-              ({ coords: { longitude, latitude }}) => resolve({ lon: longitude, lat: latitude }),
-              () => reject(),
-              { timeout: 1000 * 60 }
-            )
-          })
+          return getLocation();
         }
 
         return Promise.reject();

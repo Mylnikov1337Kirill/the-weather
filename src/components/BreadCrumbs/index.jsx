@@ -1,8 +1,11 @@
 import React, {useContext} from 'react';
 import PropTypes from 'prop-types';
 
+import { ThemeContext } from '../App';
+
+import { vibrate } from '../../utils/navigatorApi';
+
 import styles from './styles/Breadcrumbs.module.css';
-import {ThemeContext} from "../App";
 
 const BreadCrumbs = ({ items, value, onChange }) => {
   const { value: theme } = useContext(ThemeContext);
@@ -18,7 +21,10 @@ const BreadCrumbs = ({ items, value, onChange }) => {
       <button
         key={ i }
         className={ itemClasses.join(' ') }
-        onClick={ () => onChange(i) }
+        onClick={ () => {
+          onChange(i);
+          vibrate();
+        } }
       />
     )
   });

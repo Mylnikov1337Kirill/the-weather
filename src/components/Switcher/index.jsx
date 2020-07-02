@@ -3,8 +3,11 @@ import PropTypes from 'prop-types';
 
 import { Icon } from '../Icon';
 
+import { vibrate } from '../../utils/navigatorApi';
+
+import { PROPS } from '../../consts/component-props';
+
 import styles from './styles/Switcher.module.css';
-import {PROPS} from "../../consts/component-props";
 
 const Switcher = ({ checked, onChange }) => {
   const iconWrapperClasses = [styles['icon-wrapper']];
@@ -18,7 +21,10 @@ const Switcher = ({ checked, onChange }) => {
       <input
         type='checkbox'
         checked={ checked }
-        onChange={ ({ target: { checked }}) => onChange(checked) }
+        onChange={ ({ target: { checked }}) => {
+          onChange(checked);
+          vibrate();
+        } }
       />
       <div className={ iconWrapperClasses.join(' ') }>
         <Icon type={ PROPS.ICON.SIMPLE_SUN } className={ `${styles.icon}`} />
