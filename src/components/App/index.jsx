@@ -73,8 +73,8 @@ const App = () => {
   }
 
   return (
-    <div className={ styles.app }>
-      <ThemeContext.Provider value={ { value: theme, updateValue: setTheme } }>
+    <ThemeContext.Provider value={ { value: theme, updateValue: setTheme } }>
+      <div className={ `${styles.app } ${styles[theme]}`}>
         <AnimationsLayout />
         <div className={ styles['theme-switcher'] }>
           <Switcher
@@ -87,8 +87,8 @@ const App = () => {
           <Temperature forecast={ forecast } />
           <Humidity forecast={ forecast } />
         </Carousel>
-      </ThemeContext.Provider>
-    </div>
+      </div>
+    </ThemeContext.Provider>
   );
 };
 

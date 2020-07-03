@@ -3,6 +3,15 @@
     height: 100%;
     overflow-x: hidden;
     position: relative;
+    transition: background-color .350s ease-in-out;
+}
+
+.app.day {
+    background-color: #fff;
+}
+
+.app.night {
+    background-color: #2E4582;
 }
 
 .theme-switcher {

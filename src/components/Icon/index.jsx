@@ -7,20 +7,22 @@ import { SunIcon } from './components/SmileySun';
 import { SmileyRainDrop } from './components/SmileyRainDrop';
 import { SimpleMoon } from './components/SimpleMoon';
 import { SimpleSun } from './components/SimpleSun';
+import { Star } from './components/Star';
 
 const getIconByType = (type) => ({
   [PROPS.ICON.WIND]: WindIcon,
   [PROPS.ICON.SUN]: SunIcon,
   [PROPS.ICON.RAINDROP]: SmileyRainDrop,
   [PROPS.ICON.SIMPLE_MOON]: SimpleMoon,
-  [PROPS.ICON.SIMPLE_SUN]: SimpleSun
+  [PROPS.ICON.SIMPLE_SUN]: SimpleSun,
+  [PROPS.ICON.STAR]: Star,
 })[type];
 
-const Icon = ({ type, className }) => {
+const Icon = ({ type, className, style }) => {
   try {
     const Component = getIconByType(type);
 
-    return <Component className={ className } />
+    return <Component className={ className } style={ style } />
   } catch (e) {
     console.error(`icon with type ${type} has no appropriate component`);
     return null;

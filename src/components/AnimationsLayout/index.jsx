@@ -4,24 +4,30 @@ import { ThemeContext } from '../App';
 
 import { ShootingStar } from './components/ShootingStar';
 
-import {THEMES} from "../../consts/themes";
+import { THEMES } from '../../consts/themes';
 
-const getDefaultBetween = (start, end) =>  Math.floor(Math.random() * (end - start + 1)) + start;
+import { getRandomBetween } from '../../utils/random';
+
+import styles from './styles/AnimationsLayout.module.css';
 
 const AnimationsLayout = () => {
-  const [objectsCount, setObjectsCount] = useState(getDefaultBetween(5, 9));
+  const [objectsCount, setObjectsCount] = useState(getRandomBetween(5, 9));
   const { value } = useContext(ThemeContext);
 
   useEffect(() => {
-    const timer = setTimeout(() => setObjectsCount(getDefaultBetween(5, 9)), 1000 * 90);
+    const timer = setTimeout(() => setObjectsCount(getRandomBetween(5, 9)), 1000 * 90);
 
     return () => clearTimeout(timer);
   }, []);
 
   if (value === THEMES.NIGHT) {
     return (
-      <div>
-
+      <div className={ styles.wrapper }>
+        {
+          [...Array(objectsCount).keys()].map(k => (
+            <ShootingStar key={ k } />
+          ))
+        }
       </div>
     );
   }
