@@ -78,7 +78,10 @@ const App = () => {
         <AnimationsLayout />
         <div className={ styles['theme-switcher'] }>
           <Switcher
-            onChange={ (v) => setTheme(v ? THEMES.DAY : THEMES.NIGHT) }
+            onChange={ (v) => {
+              setTheme(v ? THEMES.DAY : THEMES.NIGHT);
+              Store.clearAnimationLayoutPoints();
+            } }
             checked={ theme === THEMES.DAY }
           />
         </div>

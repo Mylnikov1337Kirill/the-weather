@@ -2,16 +2,18 @@ import { openDB, deleteDB } from 'idb';
 
 import { mapWeatherResponse } from './utils';
 import config from '../../config/config';
+import {getRandomBetween} from "../../utils/random";
+import {findNearest, findNearestPoint} from "../../utils/nearest";
 const { db_version, refresh_rate } = config;
 
 const DB_NAME = 'the-weather-db';
 const STORE_NAME = 'store';
 
-
 class StorageService {
   constructor() {
     this.state = {
       lastUpdate: null,
+      animationLayoutPoints: [],
     };
   }
 
@@ -88,7 +90,50 @@ class StorageService {
 
       return Promise.reject();
     }
-  }
+  };
+
+  savePoint = (point) => {
+    this.state = {
+      ...this.state,
+      animationLayoutPoints: [
+        ...this.state.animationLayoutPoints,
+        { ...point }
+      ],
+    };
+  };
+
+  actualizeCoords = (point) => {
+    const { animationLayoutPoints } = this.state;
+
+    const nearestPoint = findNearestPoint(animationLayoutPoints, point);
+
+    if (!nearestPoint) {
+      return point;
+    }
+
+    if (Math.abs(point.x - nearestPoint.x) < 5 && Math.abs(point.y - nearestPoint.y) < 20) {
+      const signIdentity = Math.round(Math.random());
+      const newX = point.x + (signIdentity ? getRandomBetween(1,3) : -getRandomBetween(1,3));
+      const newY = point.y + (signIdentity ? getRandomBetween(12, 19) : -getRandomBetween(12, 19));
+      return this.actualizeCoords({ x: newX, y: newY });
+    }
+
+    return point;
+  };
+
+  generateCoords = () => {
+    const { x, y } = this.actualizeCoords({ x: getRandomBetween(10, 90), y: getRandomBetween(1, 30) * getRandomBetween(1, 3) });
+
+    this.savePoint({ x, y });
+    return { top: y, right: x };
+  };
+
+  clearAnimationLayoutPoints = () => {
+    this.state = {
+      ...this.state,
+      animationLayoutPoints: [],
+    }
+  };
 }
 
 const Store = new StorageService();
