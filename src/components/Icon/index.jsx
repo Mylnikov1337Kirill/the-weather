@@ -8,6 +8,8 @@ import { SmileyRainDrop } from './components/SmileyRainDrop';
 import { SimpleMoon } from './components/SimpleMoon';
 import { SimpleSun } from './components/SimpleSun';
 import { Star } from './components/Star';
+import { Clouds } from './components/Clouds';
+import { Clouds1 } from './components/Clouds1';
 
 const getIconByType = (type) => ({
   [PROPS.ICON.WIND]: WindIcon,
@@ -16,6 +18,8 @@ const getIconByType = (type) => ({
   [PROPS.ICON.SIMPLE_MOON]: SimpleMoon,
   [PROPS.ICON.SIMPLE_SUN]: SimpleSun,
   [PROPS.ICON.STAR]: Star,
+  [PROPS.ICON.CLOUDS]: Clouds,
+  [PROPS.ICON.CLOUDS1]: Clouds1
 })[type];
 
 const Icon = ({ type, className, style }) => {

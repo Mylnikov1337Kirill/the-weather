@@ -5,7 +5,9 @@ const PROPS = {
     RAINDROP: 'raindrop',
     SIMPLE_SUN: 'simpleSun',
     SIMPLE_MOON: 'simpleMoon',
-    STAR: 'star'
+    STAR: 'star',
+    CLOUDS: 'clouds',
+    CLOUDS1: 'clouds1'
   }
 };
 

@@ -4,7 +4,7 @@
     border-radius: 20px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25);
     display: block;
-    background-color: #DEDEDE;
+    background-color: #FFF;
     position: relative;
     cursor: pointer;
 }
@@ -32,7 +32,7 @@ input {
 }
 
 .icon-wrapper.checked {
-    background-color: #fff;
+    background-color: #BBEAFF;
     transform: translateX(-10%);
 }
 

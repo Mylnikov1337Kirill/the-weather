@@ -111,10 +111,13 @@ class StorageService {
       return point;
     }
 
-    if (Math.abs(point.x - nearestPoint.x) < 5 && Math.abs(point.y - nearestPoint.y) < 20) {
-      const signIdentity = Math.round(Math.random());
-      const newX = point.x + (signIdentity ? getRandomBetween(1,3) : -getRandomBetween(1,3));
-      const newY = point.y + (signIdentity ? getRandomBetween(12, 19) : -getRandomBetween(12, 19));
+    const xTooClose = Math.abs(point.x - nearestPoint.x) < 4;
+    const yTooClose = Math.abs(point.y - nearestPoint.y) < 20;
+
+    if (xTooClose && yTooClose) {
+      const direction = Math.round(Math.random());
+      const newX = xTooClose ? point.x + (direction ? getRandomBetween(1, 3) : -getRandomBetween(1, 3)) : point.x;
+      const newY = yTooClose ? point.y + (direction ? getRandomBetween(5, 8) : -getRandomBetween(5, 8)) : point.y;
       return this.actualizeCoords({ x: newX, y: newY });
     }
 
@@ -122,7 +125,7 @@ class StorageService {
   };
 
   generateCoords = () => {
-    const { x, y } = this.actualizeCoords({ x: getRandomBetween(10, 90), y: getRandomBetween(1, 30) * getRandomBetween(1, 3) });
+    const { x, y } = this.actualizeCoords({ x: getRandomBetween(10, 90), y: getRandomBetween(12, 20) * getRandomBetween(1, 3) });
 
     this.savePoint({ x, y });
     return { top: y, right: x };

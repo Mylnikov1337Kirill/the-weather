@@ -13,7 +13,8 @@
 }
 
 .item.day {
-    border-color: #BECFE8;
+    background-color: #FFF;
+    border-color: #BBEAFF;
 }
 
 .item.night {
@@ -26,7 +27,8 @@
 }
 
 .item.day.active {
-    background-color: #BECFE8;
+    border-color: #FFF;
+    background-color: #BBEAFF;
 }
 
 .item.night.active {

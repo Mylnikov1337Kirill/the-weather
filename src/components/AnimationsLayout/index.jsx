@@ -2,17 +2,17 @@ import React, { useContext, useState, useEffect } from 'react';
 
 import { ThemeContext } from '../App';
 
-import { ShootingStar } from './components/ShootingStar';
-
 import { THEMES } from '../../consts/themes';
 
 import { getRandomBetween } from '../../utils/random';
 
 import styles from './styles/AnimationsLayout.module.css';
 import { Store } from '../../services/storage';
+import { PROPS } from '../../consts/component-props';
+import {Icon} from "../Icon";
 
-const randomizeStyles = () => {
-  const size = getRandomBetween(3, 6);
+const randomizeStyles = (theme) => {
+  const size = theme === THEMES.NIGHT ? getRandomBetween(3, 6) : getRandomBetween(25, 38);
 
   const { right, top } = Store.generateCoords();
 
@@ -25,31 +25,40 @@ const randomizeStyles = () => {
 };
 
 const AnimationsLayout = () => {
-  const [objectsCount, setObjectsCount] = useState(getRandomBetween(14, 23));
-  const { value } = useContext(ThemeContext);
+  const { value: theme } = useContext(ThemeContext);
+  const [objectsCount, setObjectsCount] = useState(theme === THEMES.NIGHT ? getRandomBetween(17, 26) : getRandomBetween(2, 3));
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      Store.clearAnimationLayoutPoints();
-      setObjectsCount(getRandomBetween(14, 23));
-    }, 1000 * 90);
+    Store.clearAnimationLayoutPoints();
+    setObjectsCount(theme === THEMES.NIGHT ? getRandomBetween(17, 26) : getRandomBetween(2, 3));
+  }, [theme]);
 
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (value === THEMES.NIGHT) {
+  if (theme === THEMES.NIGHT) {
     return (
       <div className={ styles.wrapper }>
         {
           [...Array(objectsCount).keys()].map(k => (
-            <ShootingStar key={ k } style={ { ...randomizeStyles() }} />
+            <Icon key={ k } type={ PROPS.ICON.STAR } className={ styles.object } style={ { ...randomizeStyles(theme) } } />
           ))
         }
       </div>
     );
   }
 
-  return null;
+  return (
+    <div className={ styles.wrapper }>
+      {
+        [...Array(objectsCount).keys()].map(k => (
+          <Icon key={ k } type={ PROPS.ICON.CLOUDS } className={ styles.object } style={ { ...randomizeStyles(theme) } } />
+        ))
+      }
+      {
+        [...Array(objectsCount).keys()].map(k => (
+          <Icon key={ k } type={ PROPS.ICON.CLOUDS1 } className={ styles.object } style={ { ...randomizeStyles(theme) } } />
+        ))
+      }
+    </div>
+  );
 };
 
 export { AnimationsLayout };
