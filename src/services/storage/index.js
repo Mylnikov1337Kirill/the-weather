@@ -125,7 +125,7 @@ class StorageService {
   };
 
   generateCoords = () => {
-    const { x, y } = this.actualizeCoords({ x: getRandomBetween(10, 90), y: getRandomBetween(12, 20) * getRandomBetween(1, 3) });
+    const { x, y } = this.actualizeCoords({ x: getRandomBetween(10, 90), y: getRandomBetween(7, 20) * getRandomBetween(1, 6) });
 
     this.savePoint({ x, y });
     return { top: y, right: x };
