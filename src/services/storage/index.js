@@ -1,9 +1,11 @@
 import { openDB, deleteDB } from 'idb';
 
 import { mapWeatherResponse } from './utils';
+import { getRandomBetween } from '../../utils/random';
+import { findNearestPoint } from '../../utils/nearest';
+
 import config from '../../config/config';
-import {getRandomBetween} from "../../utils/random";
-import {findNearest, findNearestPoint} from "../../utils/nearest";
+import {THEMES} from "../../consts/themes";
 const { db_version, refresh_rate } = config;
 
 const DB_NAME = 'the-weather-db';
@@ -111,21 +113,25 @@ class StorageService {
       return point;
     }
 
-    const xTooClose = Math.abs(point.x - nearestPoint.x) < 4;
-    const yTooClose = Math.abs(point.y - nearestPoint.y) < 20;
+    const xTooClose = Math.abs(point.x - nearestPoint.x) < 5;
+    const yTooClose = Math.abs(point.y - nearestPoint.y) < 5;
 
     if (xTooClose && yTooClose) {
       const direction = Math.round(Math.random());
       const newX = xTooClose ? point.x + (direction ? getRandomBetween(1, 3) : -getRandomBetween(1, 3)) : point.x;
-      const newY = yTooClose ? point.y + (direction ? getRandomBetween(5, 8) : -getRandomBetween(5, 8)) : point.y;
+      const newY = yTooClose ? point.y + (direction ? getRandomBetween(1, 3) : -getRandomBetween(1, 3)) : point.y;
       return this.actualizeCoords({ x: newX, y: newY });
     }
 
     return point;
   };
 
-  generateCoords = () => {
-    const { x, y } = this.actualizeCoords({ x: getRandomBetween(10, 90), y: getRandomBetween(7, 20) * getRandomBetween(1, 6) });
+  generateCoords = (theme) => {
+    const coordsByTheme = theme === THEMES.NIGHT
+      ? { x: getRandomBetween(10, 90), y: getRandomBetween(0, 100) }
+      : { x: getRandomBetween(10, 90), y: getRandomBetween(10, 80) };
+
+    const { x, y } = this.actualizeCoords(coordsByTheme);
 
     this.savePoint({ x, y });
     return { top: y, right: x };
