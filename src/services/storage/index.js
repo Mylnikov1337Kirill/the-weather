@@ -113,13 +113,12 @@ class StorageService {
       return point;
     }
 
-    const xTooClose = Math.abs(point.x - nearestPoint.x) < 5;
+    const xTooClose = Math.abs(point.x - nearestPoint.x) < 2;
     const yTooClose = Math.abs(point.y - nearestPoint.y) < 5;
 
     if (xTooClose && yTooClose) {
-      const direction = Math.round(Math.random());
-      const newX = xTooClose ? point.x + (direction ? getRandomBetween(1, 3) : -getRandomBetween(1, 3)) : point.x;
-      const newY = yTooClose ? point.y + (direction ? getRandomBetween(1, 3) : -getRandomBetween(1, 3)) : point.y;
+      const newX = xTooClose ? point.x + (point.x < 50 ? getRandomBetween(1, 3) : -getRandomBetween(1, 3)) : point.x;
+      const newY = yTooClose ? point.y + (point.y < 50 ? getRandomBetween(1, 3) : -getRandomBetween(1, 3)) : point.y;
       return this.actualizeCoords({ x: newX, y: newY });
     }
 

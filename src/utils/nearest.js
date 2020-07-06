@@ -7,7 +7,7 @@ const findNearestPoint = (list, point) => {
   }
 
   const curriedGetDistance = getDistance(point);
-  return list.reduce((a, b) => curriedGetDistance(a) < getDistance(b) ? a: b, {});
+  return list.reduce((a, b) => curriedGetDistance(a) < curriedGetDistance(b) ? a: b, {});
 };
 
 export { findNearestPoint };
