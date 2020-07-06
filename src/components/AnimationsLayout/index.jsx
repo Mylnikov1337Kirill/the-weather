@@ -1,5 +1,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 
+import { Icon } from '../Icon';
+
 import { ThemeContext } from '../App';
 
 import { THEMES } from '../../consts/themes';
@@ -9,7 +11,6 @@ import { getRandomBetween } from '../../utils/random';
 import styles from './styles/AnimationsLayout.module.css';
 import { Store } from '../../services/storage';
 import { PROPS } from '../../consts/component-props';
-import {Icon} from "../Icon";
 
 const randomizeStyles = (theme) => {
   const size = theme === THEMES.NIGHT ? getRandomBetween(3, 6) : getRandomBetween(25, 38);

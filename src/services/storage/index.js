@@ -1,11 +1,12 @@
-import { openDB, deleteDB } from 'idb';
+import { openDB } from 'idb';
 
 import { mapWeatherResponse } from './utils';
 import { getRandomBetween } from '../../utils/random';
 import { findNearestPoint } from '../../utils/nearest';
 
+import { THEMES } from '../../consts/themes';
+
 import config from '../../config/config';
-import {THEMES} from "../../consts/themes";
 const { db_version, refresh_rate } = config;
 
 const DB_NAME = 'the-weather-db';
@@ -117,8 +118,8 @@ class StorageService {
     const yTooClose = Math.abs(point.y - nearestPoint.y) < 5;
 
     if (xTooClose && yTooClose) {
-      const newX = xTooClose ? point.x + (point.x < 50 ? getRandomBetween(1, 3) : -getRandomBetween(1, 3)) : point.x;
-      const newY = yTooClose ? point.y + (point.y < 50 ? getRandomBetween(1, 3) : -getRandomBetween(1, 3)) : point.y;
+      const newX = xTooClose ? point.x + (!!Math.round(Math.random()) ? getRandomBetween(1, 30) : -getRandomBetween(1, 30)) : point.x;
+      const newY = yTooClose ? point.y + (!!Math.round(Math.random()) ? getRandomBetween(1, 30) : -getRandomBetween(1, 30)) : point.y;
       return this.actualizeCoords({ x: newX, y: newY });
     }
 

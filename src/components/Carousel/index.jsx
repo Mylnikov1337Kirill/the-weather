@@ -13,12 +13,19 @@ const defaultTouchEventCoords = { start: 0, move: 0 };
 const Carousel = ({ children }) => {
   const [currentSlide, setCurrentSlide] = useState(1);
   const touchEventCoords = useRef({ ...defaultTouchEventCoords });
+  const carouselWrapperRef = useRef(null);
+  const currentSlideStateRef = useRef(currentSlide);
+
   const itemsCount = children.length;
+
+  // dirty hack to deal with actual state in event handlers
+  const setCurrentSlideStateRef = (value) => {
+    setCurrentSlide(value);
+    currentSlideStateRef.current = value;
+  };
+
   const lock = (e) => {
     touchEventCoords.current = { ...defaultTouchEventCoords, start: getProperEvent(e).clientX };
-
-    document.addEventListener('mousemove', move);
-    document.addEventListener('touchmove', move);
   };
 
   const release = (e) => {
@@ -28,41 +35,38 @@ const Carousel = ({ children }) => {
       const dx = getProperEvent(e).clientX - startValue;
       const s = Math.sign(dx);
 
-      document.removeEventListener('mousemove', move);
-      document.removeEventListener('touchmove', move);
-
-      if ((currentSlide === 0 && s > 0) || (currentSlide === itemsCount - 1 && s < 0)) {
+      const currentSlideValue = currentSlideStateRef.current;
+      if ((currentSlideValue === 0 && s > 0) || (currentSlideValue === itemsCount - 1 && s < 0)) {
         return;
       }
 
-      setCurrentSlide(currentSlide - s);
+      setCurrentSlideStateRef(currentSlideValue - s);
     }
-  };
-
-  const move = (e) => {
-    // rethink this next time
-    touchEventCoords.current = { ...touchEventCoords.current, move: getProperEvent(e).clientX };
   };
 
   useEffect(() => {
-    document.addEventListener('mousedown', lock);
-    document.addEventListener('touchstart', lock);
-    document.addEventListener('mouseup', release);
-    document.addEventListener('touchend', release);
+    const refValue = carouselWrapperRef.current;
+
+    if (refValue) {
+      refValue.addEventListener('mousedown', lock);
+      refValue.addEventListener('touchstart', lock);
+      refValue.addEventListener('mouseup', release);
+      refValue.addEventListener('touchend', release);
+    }
 
     return () => {
-      document.removeEventListener('mousedown', lock);
-      document.removeEventListener('touchstart', lock);
-      document.removeEventListener('mouseup', release);
-      document.removeEventListener('touchend', release);
+      refValue.removeEventListener('mousedown', lock);
+      refValue.removeEventListener('touchstart', lock);
+      refValue.removeEventListener('mouseup', release);
+      refValue.removeEventListener('touchend', release);
     }
-  });
+  }, []);
 
   const appTranslateAttr = { transform: `translate(${currentSlide * -100 }%)`};
 
   return (
     <Tab>
-      <div style={ { ...appTranslateAttr } } className={ styles.carousel }>
+      <div style={ { ...appTranslateAttr } } className={ styles.carousel } ref={ carouselWrapperRef }>
         { children }
       </div>
       <div className={ styles.breadcrumbs }>
