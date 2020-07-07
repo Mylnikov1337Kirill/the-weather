@@ -45,20 +45,16 @@ const Carousel = ({ children }) => {
   };
 
   useEffect(() => {
-    const refValue = carouselWrapperRef.current;
-
-    if (refValue) {
-      refValue.addEventListener('mousedown', lock);
-      refValue.addEventListener('touchstart', lock);
-      refValue.addEventListener('mouseup', release);
-      refValue.addEventListener('touchend', release);
-    }
+    document.addEventListener('mousedown', lock);
+    document.addEventListener('touchstart', lock);
+    document.addEventListener('mouseup', release);
+    document.addEventListener('touchend', release);
 
     return () => {
-      refValue.removeEventListener('mousedown', lock);
-      refValue.removeEventListener('touchstart', lock);
-      refValue.removeEventListener('mouseup', release);
-      refValue.removeEventListener('touchend', release);
+      document.removeEventListener('mousedown', lock);
+      document.removeEventListener('touchstart', lock);
+      document.removeEventListener('mouseup', release);
+      document.removeEventListener('touchend', release);
     }
   }, []);
 
