@@ -12,10 +12,11 @@ import { Humidity } from '../Humidity';
 import { Switcher } from '../Switcher';
 import { AnimationsLayout } from '../AnimationsLayout';
 
+import { THEMES } from '../../consts/themes';
+
 import styles from './styles/App.module.css';
 
 import config from '../../config/config';
-import {THEMES} from "../../consts/themes";
 const { refresh_rate } = config;
 
 const getDefaultTheme = () => {
@@ -30,32 +31,35 @@ const getDefaultTheme = () => {
 
 const ThemeContext = React.createContext('');
 
+const loadData = async () =>
+  await Store.getLastUpdate(
+    async () => {
+      try {
+        const geolocation = await Api.geolocation.getPosition();
+        return Api.weather.load(geolocation);
+      } catch (e) {
+        return Api.weather.load();
+      }
+    }
+  );
+
 const App = () => {
   const [theme, setTheme] = useState(getDefaultTheme());
   const [loading, setLoading] = useState(false);
   const [forecast, setForecast] = useState(null);
 
-  const loadData = useCallback(async () => {
+  const fetchData = useCallback(async () => {
     setLoading(true);
-    const lastUpdate = await Store.getLastUpdate(
-      async () => {
-        try {
-          const geolocation = await Api.geolocation.getPosition();
-          return Api.weather.load(geolocation);
-        } catch (e) {
-          return Api.weather.load();
-        }
-      }
-    );
+    const lastUpdate = await loadData();
     setLoading(false);
 
     setForecast(lastUpdate);
   }, []);
 
   useEffect(() => {
-    loadData();
+    fetchData();
 
-    const timer =  setTimeout(loadData, refresh_rate);
+    const timer = setTimeout(fetchData, refresh_rate);
 
     return () => clearTimeout(timer);
   }, []);
