@@ -62,9 +62,9 @@ const App = () => {
     const timer = setTimeout(fetchData, refresh_rate);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [fetchData]);
 
-  if (!forecast && loading) {
+  if (loading) {
     return (
       <Tab>
         <Loader />
